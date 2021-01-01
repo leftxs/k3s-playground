@@ -9,7 +9,7 @@
 Vagrant.configure(2) do |config|
 
   # Plugins
-  config.vagrant.plugins = ["vagrant-reload", "vagrant-vbguest"]
+  config.vagrant.plugins = ["vagrant-reload", "vagrant-vbguest", "landrush"]
 
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -29,16 +29,20 @@ Vagrant.configure(2) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # K8 dashboard
   config.vm.network "forwarded_port", guest: 8001, host: 8001
+  # Traefik port
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  #config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "10.10.9.99"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.network "public_network"
+  #config.vm.network "public_network"
   config.vm.hostname = "k3s"
+  config.landrush.enabled = true
+  config.vm.hostname = "k3s.io"
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
@@ -53,7 +57,7 @@ Vagrant.configure(2) do |config|
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |v|
-    v.gui = true
+    v.gui = false
     v.memory = 2048
     v.cpus = 3
     v.name = "k3s"
