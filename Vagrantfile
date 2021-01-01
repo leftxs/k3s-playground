@@ -9,7 +9,7 @@
 Vagrant.configure(2) do |config|
 
   # Plugins
-  config.vagrant.plugins = ["vagrant-reload", "vagrant-vbguest", "landrush"]
+  config.vagrant.plugins = ["vagrant-reload", "vagrant-vbguest", "vagrant-hostsupdater"]
 
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -40,8 +40,6 @@ Vagrant.configure(2) do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   #config.vm.network "public_network"
-  config.vm.hostname = "k3s"
-  config.landrush.enabled = true
   config.vm.hostname = "k3s.io"
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
